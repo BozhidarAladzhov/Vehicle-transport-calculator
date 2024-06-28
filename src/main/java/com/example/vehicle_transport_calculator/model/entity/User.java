@@ -26,9 +26,9 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "quoteBy")
-    private Set<VehicleQuote> quotes;
+    private Set<Quote> quotes;
 
-    public User (){
+    public User() {
         this.quotes = new HashSet<>();
     }
 
@@ -72,5 +72,11 @@ public class User {
         this.password = password;
     }
 
+    public Set<Quote> getQuotes() {
+        return quotes;
+    }
 
+    public void setQuotes(Set<Quote> quotes) {
+        this.quotes = quotes;
+    }
 }
