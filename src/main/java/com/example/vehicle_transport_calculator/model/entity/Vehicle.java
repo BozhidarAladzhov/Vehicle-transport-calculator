@@ -44,14 +44,6 @@ public class Vehicle {
         this.id = id;
     }
 
-    public VehicleTypeEnum getVehicleType() {
-        return vehicleTypeEnum;
-    }
-
-    public void setVehicleType(VehicleTypeEnum vehicleTypeEnum) {
-        this.vehicleTypeEnum = vehicleTypeEnum;
-    }
-
     public int getYear() {
         return year;
     }

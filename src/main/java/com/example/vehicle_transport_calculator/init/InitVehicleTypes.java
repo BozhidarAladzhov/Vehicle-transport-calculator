@@ -21,7 +21,7 @@ public class InitVehicleTypes implements CommandLineRunner {
             VehicleTypeEnum.UTV, "Larger than ATV, for 2 or more persons."
     );
 
-    private VehicleTypeRepository vehicleTypeRepository;
+    private final VehicleTypeRepository vehicleTypeRepository;
 
     public InitVehicleTypes(VehicleTypeRepository vehicleTypeRepository) {
         this.vehicleTypeRepository = vehicleTypeRepository;
