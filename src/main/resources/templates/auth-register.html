@@ -69,59 +69,51 @@
     <h2 class="text-center text-white">Register User</h2>
     <form method="POST" 
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-        <div class="row">
-            <div class="form-group col-md-6 mb-3">
-                <label for="firstName" class="text-white font-weight-bold">First Name</label>
-                <input  id="firstName" type="text" min="2" max="20" class="form-control"
-                       placeholder="First name"/>
-                <p class="errors alert alert-danger">
-                    First name is required.
-                </p>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <label for="lastName" class="text-white font-weight-bold">Last Name</label>
-                <input id="lastName" type="text" min="2" max="20" class="form-control"
-                       placeholder="First name"/>
-                <p class="errors alert alert-danger">
-                    Last name is required.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6 mb-3">
-                <label for="username" class="text-white font-weight-bold">Username</label>
-                <input id="username" type="text" min="2" max="20" class="form-control"
-                       placeholder="First name"/>
-                <p class="errors alert alert-danger">
-                    Username is required.
-                </p>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-                <label for="password" class="text-white font-weight-bold">Password</label>
-                <input id="password" type="password" min="2" max="20" class="form-control"
-                       placeholder="Password"/>
-                <p class="errors alert alert-danger">
-                    Password is required.
-                </p>
-            </div>
-        </div>
         <div class="form-group">
-            <label class="text-center text-white font-weight-bold" for="roles">Roles</label>
-            <select  id="roles" class="form-control" multiple>
-                <option>
-                </option>
-            </select>
-            <p class="errors alert alert-danger">
-                Selecting a role is required.
-            </p>
+            <div class="label-holder textCol d-flex justify-content-center">
+                <label for="firstName" class="text-white font-weight-bold">First Name</label>
+            </div>
+            <input type="text" class="form-control" id="firstName" name="username"
+            />
+
+            <small class="invalid-feedback danger" style="font-size: 15px">
+                First Name length must be between 3 and 20 characters!
+            </small>
+
         </div>
 
-        <div class="row">
-            <div class="col col-md-4">
-                <div class="button-holder d-flex">
-                    <input type="submit" class="btn btn-info btn-lg" value="Submit Offer"/>
-                </div>
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="lastName" class="h4 mb-2">Last name</label>
             </div>
+            <input type="text" class="form-control" id="lastName" name="lastName"
+            />
+
+            <small class="invalid-feedback danger">Last name cannot be empty!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="email" class="h4 mb-2">Email</label>
+            </div>
+            <input type="email" class="form-control" id="email" name="email"
+            />
+            <small class="invalid-feedback danger">Email cannot be empty!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="password" class="h4 mb-2">Password</label>
+            </div>
+            <input type="password" class="form-control" id="password" name="password"
+            />
+            <small class="invalid-feedback danger">Password length must be between 3 and 20 characters!</small>
+        </div>
+
+
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" value="Register">Register</button>
         </div>
     </form>
 </div>
