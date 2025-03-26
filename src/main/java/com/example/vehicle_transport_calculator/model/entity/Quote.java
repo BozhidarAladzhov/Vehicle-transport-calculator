@@ -1,12 +1,13 @@
 package com.example.vehicle_transport_calculator.model.entity;
 
-import com.example.vehicle_transport_calculator.model.entity.enums.PortOfDischarge;
-import com.example.vehicle_transport_calculator.model.entity.enums.PortOfLoading;
-import com.example.vehicle_transport_calculator.model.entity.enums.VehicleEngine;
+import com.example.vehicle_transport_calculator.model.enums.PortOfDischarge;
+import com.example.vehicle_transport_calculator.model.enums.PortOfLoading;
+import com.example.vehicle_transport_calculator.model.enums.VehicleEngine;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "quotes")
+
 public class Quote {
 
     @Id
@@ -14,7 +15,7 @@ public class Quote {
     private long id;
 
     @ManyToOne
-    private User quoteBy;
+    private UserEntity quoteBy;
 
     @OneToOne
     private Vehicle quoteFor;
@@ -42,11 +43,11 @@ public class Quote {
         this.id = id;
     }
 
-    public User getQuoteBy() {
+    public UserEntity getQuoteBy() {
         return quoteBy;
     }
 
-    public void setQuoteBy(User quoteBy) {
+    public void setQuoteBy(UserEntity quoteBy) {
         this.quoteBy = quoteBy;
     }
 

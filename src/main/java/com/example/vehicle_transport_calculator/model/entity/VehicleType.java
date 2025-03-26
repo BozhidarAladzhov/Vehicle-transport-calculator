@@ -1,6 +1,6 @@
 package com.example.vehicle_transport_calculator.model.entity;
 
-import com.example.vehicle_transport_calculator.model.entity.enums.VehicleTypeEnum;
+import com.example.vehicle_transport_calculator.model.enums.VehicleTypeEnum;
 import jakarta.persistence.*;
 
 import java.util.HashSet;

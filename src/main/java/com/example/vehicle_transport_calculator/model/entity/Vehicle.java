@@ -1,7 +1,6 @@
 package com.example.vehicle_transport_calculator.model.entity;
 
-import com.example.vehicle_transport_calculator.model.entity.enums.VehicleEngine;
-import com.example.vehicle_transport_calculator.model.entity.enums.VehicleTypeEnum;
+import com.example.vehicle_transport_calculator.model.enums.VehicleEngine;
 import jakarta.persistence.*;
 
 @Entity

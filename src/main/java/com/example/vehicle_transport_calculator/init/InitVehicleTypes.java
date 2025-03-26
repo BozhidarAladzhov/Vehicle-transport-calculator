@@ -1,7 +1,7 @@
 package com.example.vehicle_transport_calculator.init;
 
 import com.example.vehicle_transport_calculator.model.entity.VehicleType;
-import com.example.vehicle_transport_calculator.model.entity.enums.VehicleTypeEnum;
+import com.example.vehicle_transport_calculator.model.enums.VehicleTypeEnum;
 import com.example.vehicle_transport_calculator.repo.VehicleTypeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

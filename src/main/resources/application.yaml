@@ -1,4 +1,5 @@
 spring:
+
   jpa:
     properties:
       hibernate:
@@ -7,6 +8,11 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: 'false'
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   mvc:
     hiddenmethod:
       filter:

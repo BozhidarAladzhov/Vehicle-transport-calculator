@@ -1,10 +1,10 @@
-package com.example.vehicle_transport_calculator.model.entity.dto;
+package com.example.vehicle_transport_calculator.model.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class UserRegisterDto {
+public class UserRegistrationDTO {
 
     @NotBlank
     @Size(min = 3, max = 20)
@@ -22,7 +22,7 @@ public class UserRegisterDto {
     @Size(min = 3, max = 20)
     private String password;
 
-    public UserRegisterDto() {
+    public UserRegistrationDTO() {
 
     }
 
