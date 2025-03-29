@@ -19,8 +19,8 @@ spring:
         enabled: 'true'
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    password: '2605'
     username: 'root'
+    password: '2605'
     url: jdbc:mysql://localhost:3306/vehicle_transport_calculator?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
 logging:
   level:
@@ -33,3 +33,12 @@ logging:
     blog: WARN
 server:
   port: 8080
+
+
+forex:
+  api:
+    key: ${FOREX_API_KEY:}
+    url: "https://openexchangerates.org/api/latest.json?app_id={app_id}"
+    base: "USD"
+  init-ex-rates: ${INIT_EX_RATES:false}
+

@@ -1,5 +1,6 @@
 package com.example.vehicle_transport_calculator.init;
 
+import com.example.vehicle_transport_calculator.service.ExRateService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Conditional;

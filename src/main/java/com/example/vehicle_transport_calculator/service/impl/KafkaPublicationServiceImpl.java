@@ -1,11 +1,15 @@
 package com.example.vehicle_transport_calculator.service.impl;
 
+import static com.example.vehicle_transport_calculator.config.KafkaConfig.EX_RATES_TOPIC;
+
 import com.example.vehicle_transport_calculator.model.dto.ExRateDTO;
 import com.example.vehicle_transport_calculator.service.KafkaPublicationService;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class KafkaPublicationServiceImpl implements KafkaPublicationService {

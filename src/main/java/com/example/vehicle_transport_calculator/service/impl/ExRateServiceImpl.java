@@ -1,8 +1,13 @@
 package com.example.vehicle_transport_calculator.service.impl;
 
 import com.example.vehicle_transport_calculator.config.ForexApiConfig;
+import com.example.vehicle_transport_calculator.model.dto.ExRateDTO;
+import com.example.vehicle_transport_calculator.model.dto.ExRatesDTO;
+import com.example.vehicle_transport_calculator.model.entity.ExRateEntity;
 import com.example.vehicle_transport_calculator.repo.ExRateRepository;
 import com.example.vehicle_transport_calculator.service.ExRateService;
+import com.example.vehicle_transport_calculator.service.KafkaPublicationService;
+import com.example.vehicle_transport_calculator.service.exception.ApiObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
