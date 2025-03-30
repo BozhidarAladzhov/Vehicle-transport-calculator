@@ -22,39 +22,51 @@ public class UserRegistrationDTO {
     @Size(min = 3, max = 20)
     private String password;
 
-    public UserRegistrationDTO() {
-
-    }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public UserRegistrationDTO setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public UserRegistrationDTO setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public UserRegistrationDTO setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public UserRegistrationDTO setPassword(String password) {
         this.password = password;
+        return this;
     }
+
+    @Override
+    public String toString() {
+        return "UserRegistrationDTO{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + (password == null ? "N/A" : "[PROVIDED]") + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
 }
