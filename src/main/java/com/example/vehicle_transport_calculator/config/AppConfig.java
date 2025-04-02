@@ -18,7 +18,7 @@ public class AppConfig {
         return new ModelMapper();
     }
 
-   /* @Bean
+    @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource,
                                                        UserRoleRepository userRoleRepository,
                                                        ResourceLoader resourceLoader) {
@@ -32,6 +32,6 @@ public class AppConfig {
         }
 
         return initializer;
-    }*/
+    }
 
 }

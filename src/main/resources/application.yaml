@@ -1,14 +1,25 @@
 spring:
 
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: 'root'
+    password: '2605'
+    url: jdbc:mysql://localhost:3306/vehicle_transport_calculator?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+
+
   jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: 'TRUE'
+        format_sql: true
     hibernate:
       ddl-auto: update
     open-in-view: 'false'
 
+  sql:
+    init:
+      mode: never
   kafka:
     bootstrap-servers: localhost:9092
     producer:
@@ -17,29 +28,25 @@ spring:
   mvc:
     hiddenmethod:
       filter:
-        enabled: 'true'
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    username: 'root'
-    password: '2605'
-    url: jdbc:mysql://localhost:3306/vehicle_transport_calculator?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
-logging:
-  level:
-    org:
-      hibernate:
-        type:
-          descriptor: TRACE
-        SQL: DEBUG
-      nodeValue: WARN
-    blog: WARN
-server:
-  port: 8080
-
-
+        enabled: true
 forex:
   api:
     key: ${FOREX_API_KEY:}
     url: "https://openexchangerates.org/api/latest.json?app_id={app_id}"
     base: "USD"
   init-ex-rates: ${INIT_EX_RATES:false}
+
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        type:
+#          descriptor: TRACE
+#        SQL: DEBUG
+#      nodeValue: WARN
+#    blog: WARN
+#
+#
+#server:
+#  port: 8080
 

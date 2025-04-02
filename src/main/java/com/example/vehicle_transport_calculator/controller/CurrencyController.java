@@ -1,6 +1,7 @@
 package com.example.vehicle_transport_calculator.controller;
 
 
+import com.example.vehicle_transport_calculator.controller.aop.WarnIfExecutionExceeds;
 import com.example.vehicle_transport_calculator.model.dto.ConversionResultDTO;
 import com.example.vehicle_transport_calculator.service.ExRateService;
 import com.example.vehicle_transport_calculator.service.exception.ApiObjectNotFoundException;
@@ -19,6 +20,9 @@ public class CurrencyController {
     this.exRateService = exRateService;
   }
 
+  @WarnIfExecutionExceeds(
+          threshold = 800
+  )
   @GetMapping("/api/convert")
   public ResponseEntity<ConversionResultDTO> convert(
       @RequestParam("from") String from,

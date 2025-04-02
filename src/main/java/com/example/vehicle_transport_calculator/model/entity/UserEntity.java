@@ -17,7 +17,6 @@ public class UserEntity extends BaseEntity {
 
     @UuidGenerator
     @JdbcTypeCode(VARCHAR)
-
     private UUID uuid;
 
     private String firstName;
