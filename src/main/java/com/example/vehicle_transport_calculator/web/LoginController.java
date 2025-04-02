@@ -1,11 +1,11 @@
-package com.example.vehicle_transport_calculator.controller;
+package com.example.vehicle_transport_calculator.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping
+@RequestMapping("/users")
 public class LoginController {
 
     @GetMapping("/login")

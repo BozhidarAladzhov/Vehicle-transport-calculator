@@ -1,7 +1,7 @@
-package com.example.vehicle_transport_calculator.controller;
+package com.example.vehicle_transport_calculator.web;
 
 
-import com.example.vehicle_transport_calculator.controller.aop.WarnIfExecutionExceeds;
+import com.example.vehicle_transport_calculator.web.aop.WarnIfExecutionExceeds;
 import com.example.vehicle_transport_calculator.model.dto.ConversionResultDTO;
 import com.example.vehicle_transport_calculator.service.ExRateService;
 import com.example.vehicle_transport_calculator.service.exception.ApiObjectNotFoundException;

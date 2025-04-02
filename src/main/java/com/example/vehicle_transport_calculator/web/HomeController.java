@@ -1,4 +1,4 @@
-package com.example.vehicle_transport_calculator.controller;
+package com.example.vehicle_transport_calculator.web;
 
 import com.example.vehicle_transport_calculator.model.user.VtcUserDetails;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

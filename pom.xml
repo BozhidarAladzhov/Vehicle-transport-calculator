@@ -10,7 +10,6 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>Vehicle_Transport_Calculator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>Vehicle_Transport_Calculator</name>
 	<description>Vehicle_Transport_Calculator</description>
 
@@ -48,12 +47,6 @@
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-			<version>3.2.1</version>
 		</dependency>
 
 		<dependency>

@@ -8,6 +8,7 @@ import com.example.vehicle_transport_calculator.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerUser(UserRegistrationDTO userRegistration) {
+
+
         userRepository.save(map(userRegistration));
     }
 
@@ -35,8 +38,8 @@ public class UserServiceImpl implements UserService {
     public Optional<VtcUserDetails> getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null &&
-                authentication.getPrincipal() instanceof VtcUserDetails mobileleUserDetails) {
-            return Optional.of(mobileleUserDetails);
+                authentication.getPrincipal() instanceof VtcUserDetails vtcUserDetails) {
+            return Optional.of(vtcUserDetails);
         }
         return Optional.empty();
     }

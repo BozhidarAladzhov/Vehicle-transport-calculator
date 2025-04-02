@@ -6,7 +6,6 @@ import com.example.vehicle_transport_calculator.model.dto.ExRatesDTO;
 import com.example.vehicle_transport_calculator.model.entity.ExRateEntity;
 import com.example.vehicle_transport_calculator.repo.ExRateRepository;
 import com.example.vehicle_transport_calculator.service.ExRateService;
-import com.example.vehicle_transport_calculator.service.KafkaPublicationService;
 import com.example.vehicle_transport_calculator.service.exception.ApiObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,16 +28,14 @@ public class ExRateServiceImpl implements ExRateService {
     private final ExRateRepository exRateRepository;
     private final RestClient restClient;
     private final ForexApiConfig forexApiConfig;
-    private final KafkaPublicationService kafkaPublicationService;
+
 
     public ExRateServiceImpl(ExRateRepository exRateRepository,
                              @Qualifier("genericRestClient") RestClient restClient,
-                             ForexApiConfig forexApiConfig,
-                             KafkaPublicationService kafkaPublicationService) {
+                             ForexApiConfig forexApiConfig) {
         this.exRateRepository = exRateRepository;
         this.restClient = restClient;
         this.forexApiConfig = forexApiConfig;
-        this.kafkaPublicationService = kafkaPublicationService;
     }
 
     @Override
@@ -128,9 +125,6 @@ public class ExRateServiceImpl implements ExRateService {
                 .map(this::map)
                 .toList();
 
-        exRates.forEach(
-                kafkaPublicationService::publishExRate
-        );
     }
 
     private ExRateDTO map(ExRateEntity exRateEntity) {

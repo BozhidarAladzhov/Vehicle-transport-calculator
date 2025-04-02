@@ -1,4 +1,4 @@
-package com.example.vehicle_transport_calculator.controller;
+package com.example.vehicle_transport_calculator.web;
 
 import com.example.vehicle_transport_calculator.service.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;

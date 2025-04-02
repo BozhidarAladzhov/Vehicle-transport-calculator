@@ -1,4 +1,4 @@
-package com.example.vehicle_transport_calculator.controller.aop;
+package com.example.vehicle_transport_calculator.web.aop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package com.example.vehicle_transport_calculator.controller;
+package com.example.vehicle_transport_calculator.web;
 
 import com.example.vehicle_transport_calculator.model.dto.UserRegistrationDTO;
 import com.example.vehicle_transport_calculator.service.UserService;
@@ -14,12 +14,13 @@ public class RegistrationController {
 
     private final UserService userService;
 
+
     public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 
-    @ModelAttribute("registerData")
-    public UserRegistrationDTO createEmptyDTO() {
+    @ModelAttribute("registerDTO")
+    public UserRegistrationDTO registerDTO() {
         return new UserRegistrationDTO();
     }
 
@@ -31,6 +32,8 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String register(UserRegistrationDTO registerDTO) {
+
+
 
         userService.registerUser(registerDTO);
 

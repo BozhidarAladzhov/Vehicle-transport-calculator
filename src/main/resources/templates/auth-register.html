@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
       <meta charset="UTF-8">
-    <title>Автомобили от Америка</title>
+    <title>Vehicle Transport Calculator</title>
     <link rel="stylesheet" href="/css/reset-css.css"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/main.css"/>
@@ -13,107 +14,68 @@
 
 <body>
 
-<div>
-     <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="/"><img alt="car picture" src="/img/car.jpg" class="logo"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto col-12 justify-content-between">
-                <li class="nav-item"
-                    >
-                    <a class="nav-link" href="/brands/all">All Brands</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/offers/add">Add Offer</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/offers/all">All Offers</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Admin
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/">Action</a>
-                        <a class="dropdown-item" href="/">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <div class="form-inline my-2 my-lg-0 border px-3">
-                        <div class="logged-userEntity"
-                             text="Welcome, Gosho"></div>
-                        <a class="nav-link" href="/users/logout">Logout</a>
-                    </div>
-                </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/register">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/users/login">Login</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </nav>
-</div>
+<div th:replace="~{fragments/navbar::navbar(activeLink=${'register'})}"></div>
 
 <div class="container">
     <h2 class="text-center text-white">Register User</h2>
-    <form method="POST" 
+    <form th:method="post"
+          th:action="@{/users/register}"
+          th:object="${registerDTO}"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-        <div class="form-group">
-            <div class="label-holder textCol d-flex justify-content-center">
-                <label for="firstName" class="text-white font-weight-bold">First Name</label>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label th:for="firstName" class="text-white font-weight-bold">First Name</label>
+                <input  th:field="*{firstName}"
+                        type="text"
+                        class="form-control"
+                       placeholder="First name"/>
+<!--                <p class="errors alert alert-danger">-->
+<!--                    First name is required.-->
+<!--                </p>-->
             </div>
-            <input type="text" class="form-control" id="firstName" name="username"
-            />
-
-            <small class="invalid-feedback danger" style="font-size: 15px">
-                First Name length must be between 3 and 20 characters!
-            </small>
-
+            <div class="form-group col-md-6 mb-3">
+                <label th:for="lastName" class="text-white font-weight-bold">Last Name</label>
+                <input
+                        th:field="*{lastName}"
+                       type="text"
+                       class="form-control"
+                       placeholder="Last name"/>
+<!--                <p class="errors alert alert-danger">-->
+<!--                    Last name is required.-->
+<!--                </p>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label th:for="email" class="text-white font-weight-bold">Email</label>
+                <input
+                       th:field="*{email}"
+                       type="email"
+                       class="form-control"
+                       placeholder="Email"/>
+<!--                <p class="errors alert alert-danger">-->
+<!--                    Email is required.-->
+<!--                </p>-->
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label th:for="password" class="text-white font-weight-bold">Password</label>
+                <input
+                        th:field="*{password}"
+                       type="password"
+                       class="form-control"
+                       placeholder="Password"/>
+<!--                <p class="errors alert alert-danger">-->
+<!--                    Password is required.-->
+<!--                </p>-->
+            </div>
         </div>
 
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="lastName" class="h4 mb-2">Last name</label>
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Create user"/>
+                </div>
             </div>
-            <input type="text" class="form-control" id="lastName" name="lastName"
-            />
-
-            <small class="invalid-feedback danger">Last name cannot be empty!</small>
-        </div>
-
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="email" class="h4 mb-2">Email</label>
-            </div>
-            <input type="email" class="form-control" id="email" name="email"
-            />
-            <small class="invalid-feedback danger">Email cannot be empty!</small>
-        </div>
-
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="password" class="h4 mb-2">Password</label>
-            </div>
-            <input type="password" class="form-control" id="password" name="password"
-            />
-            <small class="invalid-feedback danger">Password length must be between 3 and 20 characters!</small>
-        </div>
-
-
-
-        <div class="button-holder d-flex justify-content-center">
-            <button type="submit" value="Register">Register</button>
         </div>
     </form>
 </div>

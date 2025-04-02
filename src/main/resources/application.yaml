@@ -1,10 +1,9 @@
 spring:
 
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    username: 'root'
-    password: '2605'
-    url: jdbc:mysql://localhost:3306/vehicle_transport_calculator?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/vehicle_transport_calculator?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:}
 
 
   jpa:
@@ -20,11 +19,7 @@ spring:
   sql:
     init:
       mode: never
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
   mvc:
     hiddenmethod:
       filter:
@@ -36,17 +31,17 @@ forex:
     base: "USD"
   init-ex-rates: ${INIT_EX_RATES:false}
 
-#logging:
-#  level:
-#    org:
-#      hibernate:
-#        type:
-#          descriptor: TRACE
-#        SQL: DEBUG
-#      nodeValue: WARN
-#    blog: WARN
-#
-#
-#server:
-#  port: 8080
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor: TRACE
+        SQL: DEBUG
+      nodeValue: WARN
+    blog: WARN
+
+
+server:
+  port: 8080
 
