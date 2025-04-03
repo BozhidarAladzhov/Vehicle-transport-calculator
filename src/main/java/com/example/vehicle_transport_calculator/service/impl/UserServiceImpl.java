@@ -8,7 +8,6 @@ import com.example.vehicle_transport_calculator.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +32,13 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(map(userRegistration));
     }
+
+    @Override
+    public boolean isUniqueEmail(String email) {
+        return this.userRepository.findByEmail(email).isEmpty();
+    }
+
+
 
     @Override
     public Optional<VtcUserDetails> getCurrentUser() {

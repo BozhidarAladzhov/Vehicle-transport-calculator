@@ -10,5 +10,8 @@ public interface UserService {
 
     void registerUser(UserRegistrationDTO userRegistration);
 
+    boolean isUniqueEmail(String email);
+
     Optional<VtcUserDetails> getCurrentUser();
+
 }

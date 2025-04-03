@@ -38,19 +38,19 @@ public class UserEntity extends BaseEntity {
 
 
     // TODO ->
-/*    @OneToMany(mappedBy = "quoteBy")
-    private Set<Quote> quotes;
+/*    @OneToMany(mappedBy = "offerBy")
+    private Set<offer> offers;
 
     public UserEntity() {
-        this.quotes = new HashSet<>();
+        this.offers = new HashSet<>();
     }*/
 
-   /* public Set<Quote> getQuotes() {
-        return quotes;
+   /* public Set<offer> getoffers() {
+        return offers;
     }
 
-    public void setQuotes(Set<Quote> quotes) {
-        this.quotes = quotes;
+    public void setoffers(Set<offer> offers) {
+        this.offers = offers;
     }*/
     public String getEmail() {
     return email;

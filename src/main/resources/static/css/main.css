@@ -8,8 +8,8 @@ body {
  }
 
 .navbar .logo {
-     max-height: 50px;
-     padding-right: 100px;
+     max-width: 100%;
+     height: auto;
 }
 
 .container, .container-fluid {

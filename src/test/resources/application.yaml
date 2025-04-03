@@ -20,6 +20,6 @@ forex:
     url: "http://example.com"
     base: "USD"
 
-offers:
+ offers:
   api:
     baseUrl: "http://localhost:3306"

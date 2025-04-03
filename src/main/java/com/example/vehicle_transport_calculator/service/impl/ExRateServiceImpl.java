@@ -80,6 +80,8 @@ public class ExRateServiceImpl implements ExRateService {
             exRateRepository.save(exRateEntity);
         });
     }
+
+
     private Optional<BigDecimal> findExRate(String from, String to) {
 
         if (Objects.equals(from, to)) {
