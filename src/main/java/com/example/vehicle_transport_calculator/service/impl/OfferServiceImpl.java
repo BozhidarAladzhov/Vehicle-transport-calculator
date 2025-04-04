@@ -28,7 +28,6 @@ public class OfferServiceImpl implements OfferService {
   public OfferServiceImpl(
       @Qualifier("offersRestClient") RestClient offerRestClient,
       OfferRepository offerRepository,
-
       ExRateService exRateService) {
     this.offerRestClient = offerRestClient;
     this.offerRepository = offerRepository;

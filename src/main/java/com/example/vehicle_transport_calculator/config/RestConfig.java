@@ -16,7 +16,7 @@ public class RestConfig {
     return RestClient.create();
   }
 
-/*  @Bean("offersRestClient")
+  @Bean("offersRestClient")
   public RestClient offersRestClient(OfferApiConfig offersApiConfig,
                                      ClientHttpRequestInterceptor requestInterceptor) {
     return RestClient
@@ -25,6 +25,6 @@ public class RestConfig {
             .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
             .requestInterceptor(requestInterceptor)
             .build();
-  }*/
+  }
 
 }

@@ -31,6 +31,10 @@ forex:
     base: "USD"
   init-ex-rates: ${INIT_EX_RATES:false}
 
+offers:
+  api:
+    baseurl: "http:/localhost:8081"
+
 logging:
   level:
     org:

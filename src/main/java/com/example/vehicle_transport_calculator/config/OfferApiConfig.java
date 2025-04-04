@@ -1,4 +1,4 @@
-/*package com.example.vehicle_transport_calculator.config;
+package com.example.vehicle_transport_calculator.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -16,4 +16,4 @@ public class OfferApiConfig {
     this.baseUrl = baseUrl;
     return this;
   }
-}*/
+}

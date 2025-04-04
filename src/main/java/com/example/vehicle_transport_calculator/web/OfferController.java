@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/offer")
+@RequestMapping("/offers")
 public class OfferController {
 
   private final OfferService offerService;
