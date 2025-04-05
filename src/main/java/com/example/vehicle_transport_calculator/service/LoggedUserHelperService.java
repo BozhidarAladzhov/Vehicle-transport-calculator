@@ -42,6 +42,8 @@ public class LoggedUserHelperService {
                 .allMatch(role -> role.getAuthority().equals("ROLE_" + UserRoleEnum.USER));
     }
 
+
+
     public String getUsername() {
         return getUserDetails().getUsername();
     }

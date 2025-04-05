@@ -40,6 +40,8 @@ public class UserServiceImpl implements UserService {
 
 
 
+
+
     @Override
     public Optional<VtcUserDetails> getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

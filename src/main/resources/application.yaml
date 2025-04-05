@@ -33,7 +33,7 @@ forex:
 
 offers:
   api:
-    baseurl: "http:/localhost:8081"
+    baseUrl: "${OFFERS_BASE_URL:http://localhost:8081}"
 
 logging:
   level:

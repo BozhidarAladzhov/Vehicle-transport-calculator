@@ -126,7 +126,6 @@ public class ExRateServiceImpl implements ExRateService {
                 .sorted(Comparator.comparing(ExRateEntity::getCurrency))
                 .map(this::map)
                 .toList();
-
     }
 
     private ExRateDTO map(ExRateEntity exRateEntity) {

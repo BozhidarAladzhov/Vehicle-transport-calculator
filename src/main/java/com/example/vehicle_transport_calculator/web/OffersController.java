@@ -1,10 +1,12 @@
 package com.example.vehicle_transport_calculator.web;
 
 
+import com.example.vehicle_transport_calculator.model.enums.PortOfLoadingEnum;
 import com.example.vehicle_transport_calculator.service.OfferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -17,11 +19,18 @@ public class OffersController {
     this.offerService = offerService;
   }
 
- /* @GetMapping("/all")
+  @ModelAttribute("oceanFreight")
+  public PortOfLoadingEnum[] portOfLoading() {
+    return PortOfLoadingEnum.values();
+  }
+
+
+  @GetMapping("/all")
   public String getAllOffers(Model model) {
 
     model.addAttribute("allOffers", offerService.getAllOffersSummary());
+
     return "offers";
-  }*/
+  }
 
 }

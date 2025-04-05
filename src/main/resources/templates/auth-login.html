@@ -36,15 +36,15 @@
                     class="form-control"
                    placeholder=""/>
         </div>
-        
+
         <p class="d-flex justify-content-center mt-2" style="min-height: 1.2rem">
-            <small th:if="${badCredentials}"
-                   th:class="'alert-danger'"
+            <small th:if="${isUniqueEmail}"
+                   th:class="errors alert alert-danger"
                    th:text="'Invalid username or password'">
                 error message
             </small>
-
         </p>
+
 
         <div class="row">
             <div class="col col-md-4">

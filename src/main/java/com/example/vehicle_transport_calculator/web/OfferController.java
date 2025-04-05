@@ -5,6 +5,7 @@ import com.example.vehicle_transport_calculator.model.dto.AddOfferDTO;
 import com.example.vehicle_transport_calculator.model.enums.EngineTypeEnum;
 import com.example.vehicle_transport_calculator.model.enums.PortOfDischargeEnum;
 import com.example.vehicle_transport_calculator.model.enums.PortOfLoadingEnum;
+import com.example.vehicle_transport_calculator.service.ExRateService;
 import com.example.vehicle_transport_calculator.service.OfferService;
 import com.example.vehicle_transport_calculator.service.exception.ObjectNotFoundException;
 import jakarta.validation.Valid;
@@ -21,9 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class OfferController {
 
   private final OfferService offerService;
+  private final ExRateService exRateService;
 
-  public OfferController(OfferService offerService) {
+  public OfferController(OfferService offerService, ExRateService exRateService) {
     this.offerService = offerService;
+      this.exRateService = exRateService;
   }
 
   @ModelAttribute("allEngineTypes")
@@ -75,6 +78,7 @@ public class OfferController {
       Model model) {
 
     model.addAttribute("offerDetails", offerService.getOfferDetails(id));
+    model.addAttribute("allCurrencies", exRateService.allSupportedCurrencies());
 
     return "details";
   }

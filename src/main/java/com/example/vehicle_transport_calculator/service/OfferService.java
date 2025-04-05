@@ -12,7 +12,7 @@ public interface OfferService {
 
   void createOffer(AddOfferDTO addOfferDTO);
 
-  void deleteOffer(long offerId);
+  void deleteOffer(Long offerId);
 
   OfferDetailsDTO getOfferDetails(Long id);
 
