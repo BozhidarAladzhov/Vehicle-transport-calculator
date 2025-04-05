@@ -92,7 +92,7 @@ public class OfferController {
     return modelAndView;
   }
 
-  @DeleteMapping("/{id}")
+  @PostMapping("/{id}")
   public String deleteOffer(@PathVariable("id") Long id) {
 
     offerService.deleteOffer(id);
