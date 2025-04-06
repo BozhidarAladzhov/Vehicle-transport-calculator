@@ -51,8 +51,7 @@ class ExRateServiceImplTest {
     );
   }
 
-  // 1 SUD ->   2 CUR1
-  // 1 SUD -> 0.5 CUR2
+
 
   @ParameterizedTest(name = "Converting {2} {0} to {1}. Expected {3}")
   @CsvSource(
@@ -70,10 +69,10 @@ class ExRateServiceImplTest {
       BigDecimal amount,
       BigDecimal expected) {
 
-    initExRates();
+     initExRates();
 
-    BigDecimal result = toTest.convert(from, to, amount);
-    Assertions.assertEquals(expected, result);
+     BigDecimal result = toTest.convert(from, to, amount);
+     Assertions.assertEquals(expected, result);
   }
 
   @Test
