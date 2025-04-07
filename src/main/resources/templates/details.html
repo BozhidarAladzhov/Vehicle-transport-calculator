@@ -51,7 +51,7 @@
             <input type="hidden" id="priceInBGN" th:value="*{price}">
             <div class="card-body">
                 <a class="card-link" href="/">Update</a>
-                <form th:method="post"
+                <form th:method="delete"
                       th:action="@{/offers/{id}(id=*{id})}">
                     <input class="btn btn-link" type="submit" value="Delete"/>
                 </form>

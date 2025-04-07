@@ -92,11 +92,9 @@ public class OfferController {
     return modelAndView;
   }
 
-  @PostMapping("/{id}")
-  public String deleteOffer(@PathVariable("id") Long id) {
-
+  @DeleteMapping("/{id}")
+  public String deleteOffer(@PathVariable("id") Long id){
     offerService.deleteOffer(id);
-
     return "redirect:/offers/all";
   }
 }

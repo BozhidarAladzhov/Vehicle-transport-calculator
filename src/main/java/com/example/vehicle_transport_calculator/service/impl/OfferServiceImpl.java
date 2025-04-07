@@ -10,10 +10,14 @@ import com.example.vehicle_transport_calculator.service.OfferService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+
+
 
 import java.util.List;
 
@@ -25,13 +29,19 @@ public class OfferServiceImpl implements OfferService {
   private final OfferRepository offerRepository;
   private final ExRateService exRateService;
 
+
+  @Value("${offers.api.baseUrl}")
+
+  private String restServiceUrl;
+
   public OfferServiceImpl(
-      @Qualifier("offersRestClient") RestClient offerRestClient,
-      OfferRepository offerRepository,
-      ExRateService exRateService) {
+          @Qualifier("offersRestClient") RestClient offerRestClient,
+          OfferRepository offerRepository,
+          ExRateService exRateService) {
     this.offerRestClient = offerRestClient;
     this.offerRepository = offerRepository;
     this.exRateService = exRateService;
+
   }
 
   @Override
@@ -47,9 +57,14 @@ public class OfferServiceImpl implements OfferService {
 
   @Override
   public void deleteOffer(Long offerId) {
+    LOGGER.info("Deleted id");
 
-
-    offerRepository.deleteById(offerId);
+      offerRestClient
+              .delete()
+              .uri("/offers/{id}", offerId)
+              .retrieve()
+              .toBodilessEntity()
+              .getStatusCode();
   }
 
   @Override
@@ -71,7 +86,7 @@ public class OfferServiceImpl implements OfferService {
         .uri("/offers")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
-        .body(new ParameterizedTypeReference<>(){});
+            .body(new ParameterizedTypeReference<>(){});
   }
 
 }
