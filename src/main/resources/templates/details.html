@@ -25,30 +25,29 @@
 
             <div class="card-body pb-1">
                 <h5 class="card-title">
-                    <span th:text="*{description()}"></span></h5>
+                    <span th:text="*{description}"></span></h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text">•  Port of Loading: <span th:text="*{portOfLoading()}"></span></div>
-                    <div class="card-text">•  Port of Discharge: <span th:text="*{portOfDischarge()}"></span></div>
-                    <div class="card-text">•  Engine type: <span th:text="*{engineType()}"></span></div>
-                    <div class="card-text">•  Vehicle price: USD <span th:text="*{price()}"></span></div>
-                    <div class="card-text">•  Ocean Freight: USD <span th:text="*{oceanFreight()}"></span></div>
+                    <div class="card-text">•  Port of Loading: <span th:text="*{portOfLoading}">Port of Loading</span></div>
+                    <div class="card-text">•  Port of Discharge: <span th:text="*{portOfDischarge}">Port of Discharge</span></div>
+                    <div class="card-text">•  Engine type: <span th:text="*{engineType}">Engine Type</span></div>
+                    <div class="card-text">•  Ocean Freight: USD <span th:text="*{oceanFreight}">Ocean Freight</span></div>
+                    <div class="card-text">•  Vehicle price: <span id="price" th:text="*{price}">Vehicle price</span></div>
                     <div class="card-text">• Currency
                         <select id="currency">
                             <option
-                                th:each="currency : *{allCurrencies}"
+                                th:each="currency : ${allCurrencies}"
                                 th:value="${currency}"
                                 th:selected="${currency} == 'BGN'"
                                 th:text="${currency}"
                             >
-
                             </option>
                         </select>
                     </div>
                 </li>
             </ul>
-            <input type="hidden" id="priceInBGN" th:value="*{price}">
+            <input type = "hidden" id="priceInBGN" th:value="*{price}">
             <div class="card-body">
                 <a class="card-link" href="/">Update</a>
                 <form th:method="delete"

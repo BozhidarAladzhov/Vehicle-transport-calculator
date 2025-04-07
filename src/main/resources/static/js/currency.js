@@ -1,11 +1,11 @@
-let currencyDropDown = document.getElementById('currency')
+let currencyDropDown:HTMLElement = document.getElementById('currency')
 
 currencyDropDown.addEventListener('change', currencyChange)
 
 function currencyChange() {
   let selectedCurrency = currencyDropDown.value
   let amountInBGN = document.getElementById('priceInBGN').value
-  let priceSpan = document.getElementById('price')
+  let priceSpan:HTMLElement = document.getElementById('price')
 
   fetch('/api/convert?' + new URLSearchParams(
       {

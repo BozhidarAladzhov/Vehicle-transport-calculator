@@ -80,6 +80,7 @@ public class OfferController {
     model.addAttribute("offerDetails", offerService.getOfferDetails(id));
     model.addAttribute("allCurrencies", exRateService.allSupportedCurrencies());
 
+
     return "details";
   }
 
