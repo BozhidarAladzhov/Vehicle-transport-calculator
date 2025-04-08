@@ -37,21 +37,7 @@ public class UserEntity extends BaseEntity {
     private List<UserRoleEntity> roles = new ArrayList<>();
 
 
-    // TODO ->
-/*    @OneToMany(mappedBy = "offerBy")
-    private Set<offer> offers;
 
-    public UserEntity() {
-        this.offers = new HashSet<>();
-    }*/
-
-   /* public Set<offer> getoffers() {
-        return offers;
-    }
-
-    public void setoffers(Set<offer> offers) {
-        this.offers = offers;
-    }*/
     public String getEmail() {
     return email;
 }

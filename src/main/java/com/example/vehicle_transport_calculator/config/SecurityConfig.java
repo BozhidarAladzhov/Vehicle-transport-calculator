@@ -24,6 +24,7 @@ public class SecurityConfig {
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                         // some more resources for all users
                                         .requestMatchers("/", "/users/login", "/users/register", "/error", "/api/convert").permitAll()
+                                        .requestMatchers("/admin/**").hasRole("ADMIN") // Only admin can access /admin
                                         // all other URL-s should be authenticated.
                                         .anyRequest()
                                         .authenticated()
