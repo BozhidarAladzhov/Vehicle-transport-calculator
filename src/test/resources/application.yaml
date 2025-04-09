@@ -20,6 +20,10 @@ forex:
     url: "http://example.com"
     base: "USD"
 
- offers:
+offers:
   api:
     baseUrl: "http://localhost:3306"
+
+jwt:
+  secret: ${JWT_KEY:WSdv1kEE1tCT1a8ihRSqfwMNzlPBq8IWSdv1kEE1tCT1a8ihRSqfwMNzlPBq8IWSdv1kEE1tCT1a8ihRSqfwMNzlPBq8I}
+  expiration: ${JWT_EXPIRATION:60000}
