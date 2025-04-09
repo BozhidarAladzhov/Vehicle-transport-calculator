@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
 import java.math.BigDecimal;
@@ -127,6 +129,22 @@ public class ExRateServiceImpl implements ExRateService {
                 .map(this::map)
                 .toList();
     }
+
+    @Scheduled(cron = "0 0 2 * * *") // Runs daily at 2:00 AM
+    @Transactional
+    public void scheduledUpdateRates() {
+        LOGGER.info("Starting scheduled update of exchange rates...");
+
+        try {
+            ExRatesDTO latestRates = fetchExRates();
+            updateRates(latestRates);
+            LOGGER.info("Scheduled exchange rate update successful.");
+        } catch (Exception ex) {
+            LOGGER.error("Scheduled exchange rate update failed: {}", ex.getMessage(), ex);
+        }
+    }
+
+
 
     private ExRateDTO map(ExRateEntity exRateEntity) {
         return new ExRateDTO(exRateEntity.getCurrency(), exRateEntity.getRate());
