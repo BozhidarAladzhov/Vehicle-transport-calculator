@@ -13,6 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.security.test.context.support.WithMockUser;
+
 
 import java.math.BigDecimal;
 
@@ -23,10 +27,17 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 @EnableWireMock(
     @ConfigureWireMock(name = "exchange-rate-service")
 )
+@WithMockUser(
+        username = "bojidar@mail.com",
+        roles = {"USER", "ADMIN"}
+)
 public class ExRateServiceImplIT {
 
   @InjectWireMock("exchange-rate-service")
   private WireMockServer wireMockServer;
+
+  @MockBean
+  private DataSourceInitializer dataSourceInitializer;
 
   @Autowired
   private ExRateService exRateService;
