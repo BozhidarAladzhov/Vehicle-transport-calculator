@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
@@ -27,6 +28,9 @@ public class CurrencyControllerIT {
   // Use only if really needed.
   @MockBean
   private ExRateService mockExRateService;
+
+  @MockBean
+  private DataSourceInitializer dataSourceInitializer;
 
   @Test
   public void testConvert() throws Exception {

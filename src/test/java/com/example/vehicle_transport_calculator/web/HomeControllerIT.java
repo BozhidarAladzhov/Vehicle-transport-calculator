@@ -1,9 +1,11 @@
 package com.example.vehicle_transport_calculator.web;
 
-import com.example.vehicle_transport_calculator.model.user.VtcUserDetails;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -13,10 +15,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class HomeControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private DataSourceInitializer dataSourceInitializer;
 
     @Test
     @WithMockUser(username = "user", roles = {"USER"}) // Mock authenticated user with role USER

@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -25,6 +27,9 @@ public class RegistrationControllerIT {
   @Autowired
   private MockMvc mockMvc;
 
+  @MockBean
+  private DataSourceInitializer dataSourceInitializer;
+
   @Autowired
   private UserRepository userRepository;
 
@@ -41,7 +46,7 @@ public class RegistrationControllerIT {
         .param("password", "testpassword")
             .with(csrf())
     ).andExpect(status().is3xxRedirection())
-        .andExpect(redirectedUrl("/"));
+        .andExpect(redirectedUrl("/users/login"));
 
     Optional<UserEntity> userEntityOpt = userRepository.findByEmail("bojidar@test.com");
 
