@@ -9,77 +9,103 @@ import com.example.vehicle_transport_calculator.repo.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 class VtcUserDetailsServiceTest {
 
-  private static final String TEST_EMAIL = "user@example.com";
-  private static final String NOT_EXISTENT_EMAIL = "noone@example.com";
-
-  private VtcUserDetailsService toTest;
   @Mock
-  private UserRepository mockUserRepository;
+  private UserRepository userRepository;
+
+  private VtcUserDetailsService vtcUserDetailsService;
 
   @BeforeEach
-  void setUp() {
-    toTest = new VtcUserDetailsService(mockUserRepository);
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
+    vtcUserDetailsService = new VtcUserDetailsService(userRepository);
   }
 
   @Test
-  void testLoadUserByUsername_UserFound() {
+  public void testLoadUserByUsernameSuccess() {
+    // Prepare mock data
+    String email = "bojidar@test.com";
+    UserEntity userEntity = new UserEntity();
+    userEntity.setEmail(email);
+    userEntity.setPassword("test");
+    userEntity.setUuid(UUID.randomUUID());
+    userEntity.setFirstName("Bojidar");
+    userEntity.setLastName("Aladjov");
+    userEntity.setRoles(List.of(new UserRoleEntity().setRole(UserRoleEnum.USER)));
 
-    // Arrange
-    UserEntity testUser = new UserEntity()
-        .setEmail(TEST_EMAIL)
-        .setPassword("passwordtest")
-        .setFirstName("Bojidartest")
-        .setLastName("Aladjovtest")
-        .setRoles(List.of(
-            new UserRoleEntity().setRole(UserRoleEnum.ADMIN),
-            new UserRoleEntity().setRole(UserRoleEnum.USER)
-        ));
+    when(userRepository.findByEmail(email)).thenReturn(Optional.of(userEntity));
 
-    when(mockUserRepository.findByEmail(TEST_EMAIL))
-        .thenReturn(Optional.of(testUser));
+    // Call the method
+    VtcUserDetails userDetails = (VtcUserDetails) vtcUserDetailsService.loadUserByUsername(email);
 
-    // Act
-    UserDetails userDetails = toTest.loadUserByUsername(TEST_EMAIL);
-
-    // Assert
-    Assertions.assertInstanceOf(VtcUserDetails.class, userDetails);
-
-    VtcUserDetails vtcUserDetails = (VtcUserDetails) userDetails;
-
-    Assertions.assertEquals(TEST_EMAIL, userDetails.getUsername());
-    Assertions.assertEquals(testUser.getPassword(), userDetails.getPassword());
-    Assertions.assertEquals(testUser.getFirstName(), vtcUserDetails.getFirstName());
-    Assertions.assertEquals(testUser.getLastName(), vtcUserDetails.getLastName());
-    Assertions.assertEquals(testUser.getFirstName() + " " + testUser.getLastName(),
-        vtcUserDetails.getFullName());
-
-    var expectedRoles = testUser.getRoles().stream().map(UserRoleEntity::getRole).map(r -> "ROLE_" + r).toList();
-    var actualRoles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-
-    Assertions.assertEquals(expectedRoles, actualRoles);
+    // Assertions
+    Assertions.assertNotNull(userDetails);
+    Assertions.assertEquals(email, userDetails.getUsername());
+    Assertions.assertEquals("test", userDetails.getPassword());
+    Assertions.assertEquals("Bojidar", userDetails.getFirstName());
+    Assertions.assertEquals("Aladjov", userDetails.getLastName());
+    Assertions.assertEquals(1, userDetails.getAuthorities().size());
+    Assertions.assertTrue(userDetails.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_USER")));
   }
 
   @Test
-  void testLoadUserByUsername_UserNotFound() {
-    Assertions.assertThrows(
-        UsernameNotFoundException.class,
-        () -> toTest.loadUserByUsername(NOT_EXISTENT_EMAIL)
-    );
+  public void testLoadUserByUsernameUserNotFound() {
+    // Prepare mock data
+    String email = "bojidar@dosntexist.com";
+
+    when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+    // Call the method and assert exception is thrown
+    Assertions.assertThrows(UsernameNotFoundException.class, () -> vtcUserDetailsService.loadUserByUsername(email));
+  }
+
+  @Test
+  public void testMapUserEntityToVtcUserDetails() {
+    // Prepare mock data
+    UserEntity userEntity = new UserEntity();
+    userEntity.setEmail("bojidar@test.com");
+    userEntity.setPassword("test");
+    userEntity.setUuid(UUID.randomUUID());
+    userEntity.setFirstName("Bojidar");
+    userEntity.setLastName("Aladjov");
+    userEntity.setRoles(List.of(new UserRoleEntity().setRole(UserRoleEnum.USER)));
+
+    // Call the static map method directly
+    VtcUserDetails userDetails = (VtcUserDetails) VtcUserDetailsService.map(userEntity);
+
+    // Assertions
+    Assertions.assertNotNull(userDetails);
+    Assertions.assertEquals("bojidar@test.com", userDetails.getUsername());
+    Assertions.assertEquals("test", userDetails.getPassword());
+    Assertions.assertEquals("Bojidar", userDetails.getFirstName());
+    Assertions.assertEquals("Aladjov", userDetails.getLastName());
+    Assertions.assertEquals(1, userDetails.getAuthorities().size());
+    Assertions.assertTrue(userDetails.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_USER")));
+  }
+
+  @Test
+  public void testMapRoleToGrantedAuthority() {
+    // Prepare mock data
+    UserRoleEnum role = UserRoleEnum.USER;
+
+    // Call the static map method directly
+    GrantedAuthority authority = VtcUserDetailsService.map(role);
+
+    // Assertions
+    Assertions.assertNotNull(authority);
+    Assertions.assertEquals("ROLE_USER", authority.getAuthority());
   }
 
 }

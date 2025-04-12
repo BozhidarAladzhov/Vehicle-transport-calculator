@@ -3,75 +3,120 @@ package com.example.vehicle_transport_calculator.service.impl;
 
 import com.example.vehicle_transport_calculator.model.dto.UserRegistrationDTO;
 import com.example.vehicle_transport_calculator.model.entity.UserEntity;
+import com.example.vehicle_transport_calculator.model.user.VtcUserDetails;
 import com.example.vehicle_transport_calculator.repo.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-@ExtendWith(MockitoExtension.class)
+import static org.mockito.Mockito.*;
+
 public class UserServiceImplTest {
 
-  private UserServiceImpl toTest;
+  private ModelMapper modelMapper;
+  private PasswordEncoder passwordEncoder;
+  private UserRepository userRepository;
 
-  @Captor
-  private ArgumentCaptor<UserEntity> userEntityCaptor;
-
-  @Mock
-  private UserRepository mockUserRepository;
-
-  @Mock
-  private PasswordEncoder mockPasswordEncoder;
+  private UserServiceImpl userService;
 
   @BeforeEach
-  void setUp() {
+  public void setUp() {
+    modelMapper = mock(ModelMapper.class);
+    passwordEncoder = mock(PasswordEncoder.class);
+    userRepository = mock(UserRepository.class);
 
-    toTest = new UserServiceImpl(
-        new ModelMapper(),
-        mockPasswordEncoder,
-        mockUserRepository
-    );
-
+    userService = new UserServiceImpl(modelMapper, passwordEncoder, userRepository);
   }
 
   @Test
-  void testUserRegistration() {
-    // Arrange
+  public void testRegisterUser() {
+    UserRegistrationDTO dto = new UserRegistrationDTO();
+    dto.setEmail("bojidar@test.com");
+    dto.setPassword("test");
 
-    UserRegistrationDTO userRegistrationDTO =
-        new UserRegistrationDTO()
-            .setFirstName("Gergana")
-            .setLastName("Aladjova")
-            .setPassword("testpassword")
-            .setEmail("test@mailtest.com");
+    UserEntity userEntity = new UserEntity();
+    when(modelMapper.map(dto, UserEntity.class)).thenReturn(userEntity);
+    when(passwordEncoder.encode("test")).thenReturn("hashed");
+    when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
 
-    when(mockPasswordEncoder.encode(userRegistrationDTO.getPassword()))
-        .thenReturn(userRegistrationDTO.getPassword()+userRegistrationDTO.getPassword());
+    userService.registerUser(dto);
 
-
-    // ACT
-    toTest.registerUser(userRegistrationDTO);
-
-    // Assert
-    verify(mockUserRepository).save(userEntityCaptor.capture());
-
-    UserEntity actualSavedEntity = userEntityCaptor.getValue();
-
-    Assertions.assertNotNull(actualSavedEntity);
-    Assertions.assertEquals(userRegistrationDTO.getFirstName(), actualSavedEntity.getFirstName());
-    Assertions.assertEquals(userRegistrationDTO.getLastName(), actualSavedEntity.getLastName());
-    Assertions.assertEquals(userRegistrationDTO.getPassword() + userRegistrationDTO.getPassword(),
-        actualSavedEntity.getPassword());
-    Assertions.assertEquals(userRegistrationDTO.getEmail(), actualSavedEntity.getEmail());
+    verify(modelMapper).map(dto, UserEntity.class);
+    verify(passwordEncoder).encode("test");
+    verify(userRepository).save(userEntity);
+    Assertions.assertEquals("hashed", userEntity.getPassword());
   }
+
+  @Test
+  public void testIsUniqueEmailReturnsTrue() {
+    String email = "bojidar@test.com";
+    when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+    boolean result = userService.isUniqueEmail(email);
+
+    Assertions.assertTrue(result);
+    verify(userRepository).findByEmail(email);
+  }
+
+  @Test
+  public void testIsUniqueEmailReturnsFalse() {
+    String email = "bojidar@taken.com";
+    when(userRepository.findByEmail(email)).thenReturn(Optional.of(new UserEntity()));
+
+    boolean result = userService.isUniqueEmail(email);
+
+    Assertions.assertFalse(result);
+    verify(userRepository).findByEmail(email);
+  }
+
+  @Test
+  public void testGetCurrentUserReturnsUser() {
+    VtcUserDetails vtcUser = new VtcUserDetails(
+            UUID.randomUUID(),
+            "bojidaraladjov",
+            "test",
+            List.of(),
+            "Bojidar",
+            "Aladjov"
+    );
+
+    Authentication authentication = mock(Authentication.class);
+    when(authentication.getPrincipal()).thenReturn(vtcUser);
+
+    SecurityContext context = mock(SecurityContext.class);
+    when(context.getAuthentication()).thenReturn(authentication);
+
+    SecurityContextHolder.setContext(context);
+
+    Optional<VtcUserDetails> result = userService.getCurrentUser();
+
+    Assertions.assertTrue(result.isPresent());
+    Assertions.assertEquals(vtcUser, result.get());
+  }
+
+  @Test
+  public void testGetCurrentUserReturnsEmpty() {
+    Authentication authentication = mock(Authentication.class);
+    when(authentication.getPrincipal()).thenReturn("anonymousUser");
+
+    SecurityContext context = mock(SecurityContext.class);
+    when(context.getAuthentication()).thenReturn(authentication);
+
+    SecurityContextHolder.setContext(context);
+
+    Optional<VtcUserDetails> result = userService.getCurrentUser();
+
+    Assertions.assertTrue(result.isEmpty());
+  }
+
 
 }

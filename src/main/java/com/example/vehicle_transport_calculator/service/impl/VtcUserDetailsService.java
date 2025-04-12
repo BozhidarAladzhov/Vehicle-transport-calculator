@@ -30,7 +30,7 @@ public class VtcUserDetailsService implements UserDetailsService {
                         () -> new UsernameNotFoundException("User with email " + email + " not found!"));
     }
 
-    private static UserDetails map(UserEntity userEntity) {
+    static UserDetails map(UserEntity userEntity) {
 
         return new VtcUserDetails(
                 userEntity.getUuid(),
@@ -42,7 +42,7 @@ public class VtcUserDetailsService implements UserDetailsService {
         );
     }
 
-    private static GrantedAuthority map(UserRoleEnum role) {
+    static GrantedAuthority map(UserRoleEnum role) {
         return new SimpleGrantedAuthority(
                 "ROLE_" + role
         );
